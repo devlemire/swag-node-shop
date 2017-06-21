@@ -7,6 +7,10 @@ import Search from './Search/Search';
 import Swag from './Swag/Swag';
 
 export default class Shop extends Component {
+  componentDidMount() {
+
+  }
+  
   render() {
     const { history } = this.props;
     return (

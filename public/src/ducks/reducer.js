@@ -37,7 +37,6 @@ export default function( state = initialState, action ) {
       return Object.assign({}, state, { swag: [] });
 
     case SEARCH_SWAG + '_FULFILLED':
-      console.log('search swag', payload);
       return Object.assign({}, state, { swag: payload } );
 
     case ADD_TO_CART + '_FULFILLED':

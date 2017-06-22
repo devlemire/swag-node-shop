@@ -29,7 +29,6 @@ class Search extends Component {
 
   search( event ) {
     if ( event.key === "Enter" ) {
-      console.log(' testing  ');
       const { searchSwag } = this.props;
       const { category } = this.state;
       
@@ -51,11 +50,6 @@ class Search extends Component {
       </div>
     )
   }
-}
-
-function mapStateToProps( state ) {
-  console.log( state );
-  return state;
 }
 
 export default connect( state => state, { searchSwag } )( Search );

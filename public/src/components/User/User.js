@@ -3,11 +3,15 @@ import './User.css';
 
 import UserIcon from 'react-icons/lib/fa/user';
 
-export default function User() {
+import { connect } from "react-redux";
+
+function User({ user }) {
   return (
     <div id="User__parent">
       <UserIcon id="User__icon" />
-      <span> Guest </span>
+      <span> { user || 'Guest' } </span>
     </div>
   )
 }
+
+export default connect( state => state )( User );

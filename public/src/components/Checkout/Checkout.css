@@ -18,22 +18,29 @@
   box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 
-#Checkout__btnContainer {
+#Checkout__bottomContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
+  height: 60px;
   margin-top: 20px;
+  position: relative;
 }
 
 #Checkout__btn {
   width: 100%;
-  height: 100%;
+  height: 30px;
   border: none;
   background-color: skyblue;
   border-radius: 2px;
   color: white;
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
+  position: absolute;
+  bottom: 0;
+}
+
+#Checkout__total {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #Checkout__backToShop {

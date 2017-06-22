@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import './Swag.css';
 
-export default class Swag extends Component {
+import { connect } from "react-redux";
+import { addToCart } from '../../../ducks/reducer';
+
+class Swag extends Component {
   render() {
+    const { id, title, price, addToCart } = this.props;
     return (
       <div id="Swag__parent">
-        <span id="Swag__name"> Swag Name </span>
+        <span id="Swag__name"> { title } </span>
         <div id="Swag__detailsContainer">
           <div id="Swag__priceContainer">
-            <span > $14.95 </span>
+            <span > ${ price.toFixed(2) } </span>
           </div>
-          <div id="Swag__atcContainer">
+          <div id="Swag__atcContainer" onClick={ () => addToCart( id ) }>
             <span> Add to Cart </span>
           </div>
         </div>
@@ -18,3 +22,5 @@ export default class Swag extends Component {
     )
   }
 }
+
+export default connect( state => state, { addToCart } )( Swag );

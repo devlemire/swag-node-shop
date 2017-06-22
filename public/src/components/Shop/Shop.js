@@ -6,38 +6,33 @@ import SignOut from '../SignOut/SignOut';
 import Search from './Search/Search';
 import Swag from './Swag/Swag';
 
-export default class Shop extends Component {
-  componentDidMount() {
+import { connect } from "react-redux";
+import { getSwag, getUser } from '../../ducks/reducer';
 
+class Shop extends Component {
+  componentDidMount() {
+    const { getSwag, getUser } = this.props;
+    getUser();
+    getSwag();
   }
   
   render() {
-    const { history } = this.props;
+    const { history, swag } = this.props;
+    const swagComponents = swag.map( swag => (
+      <Swag key={ swag.id } title={ swag.title } price={ swag.price } id={ swag.id } />
+    ));
+
     return (
       <div id="Shop__parent">
         <User />
-        <SignOut />
+        <SignOut history={ history } />
 
         <div id="Shop__child">
           <Search history={ history } />
 
           <div id="Shop__swagParent">
             <div id="Shop__swagChild">
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
-              <Swag />
+              { swagComponents }
             </div>
           </div>
         </div>
@@ -45,3 +40,5 @@ export default class Shop extends Component {
     )
   }
 }
+
+export default connect( state => state, { getSwag, getUser } )( Shop );

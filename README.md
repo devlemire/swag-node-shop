@@ -120,4 +120,47 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 </details>
 
+## Step 3 
 
+### Summary
+
+In this step, we'll add custom middleware that will check to see if a session has been created. If a session hasn't been made yet we'll create a `user` object that keeps track of a user's `username`, `cart`, and `total`.
+
+### Instructions
+
+* Create a folder called `middlewares` in `server/`.
+* Create a file called `checkForSession.js` in `server/middlewares/`.
+* Open `server/middlewares/checkForSession.js`.
+* Export a function that has a `req`, `res`, and `next` parameter.
+* Check if the `req.session` has a `user` object.
+  * If the session doesn't have it, add it to the session.
+    * User object: `{ username: string, cart: array, total: integer }`.
+  * If the session does have it, call `next`.
+
+<details>
+
+<summary> Detailed Instructions </summary>
+
+
+
+</details>
+
+### Solution
+
+<details>
+
+<summary> <code> server/middlewares/checkForSession.js </code> </summary>
+
+```js
+module.exports = function( req, res, next ) {
+  const { session } = req;
+
+  if ( !session.user ) {
+    session.user = { username: '', cart: [], total: 0.00 };
+  } 
+  
+  next();
+};
+```
+
+</details>

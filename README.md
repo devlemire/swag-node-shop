@@ -437,3 +437,109 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 </details>
 
+## Step 8
+
+### Summary
+
+In this step, we'll create a cart controller that can handle adding and deleting items from a user's cart. We'll also add a checkout method.
+
+### Instructions
+
+* Create a file called `cart_controller.js` in `server/controllers`.
+* Require `swag` from `models/swag.js`.
+  * This is just an array of swag objects.
+* Export an object with an `add`, `delete`, and `checkout` method.
+* Each method should capture `req`, `res`, and `next` as parameters.
+* `add`:
+  * Should check the request query for an `id`.
+  * Should use the `id` to see if it is already in the user's cart on session.
+    * If it is, just send a status 200 with the request session's user object.
+    * If it isn't, find the swag object from `models/swag` using the `id` and add it to the cart on session.
+      * Add the price of the swag to the total on the session.
+      * Send a status 200 with the request session's user object.
+* `remove`:
+  * Should check the request query for an `id`.
+  * Should use the `id` to remove the swag from cart and subtract it's price from the total.
+  * Should send status 200 with the request session's user object.
+* `checkout`:
+  * Should set the cart back to an empty array on session.
+  * Should set the total back to 0 on session.
+  * Should send status 200 with the request session's user object.
+
+<details>
+
+<summary> Detailed Instructions </summary>
+
+```js
+
+```
+
+</details>
+
+### Solution
+
+<details>
+
+<summary> <code> server/controllers/cart_controller.js </code> </summary>
+
+```js
+const swag = require('../models/swag');
+
+module.exports = {
+  add: ( req, res, next ) => {
+    const { id } = req.query;
+    let { cart } = req.session.user;
+
+    const index = cart.findIndex( swag => swag.id == id );
+
+    if ( index === -1 ) {
+      const selectedSwag = swag.find( swag => swag.id == id );
+
+      cart.push( selectedSwag );
+      req.session.user.total += selectedSwag.price;
+    }
+
+    res.status(200).send( req.session.user );
+  },
+
+  delete: ( req, res, next ) => {
+    const { id } = req.query;
+    const { cart } = req.session.user;
+
+    const selectedSwag = cart.find( swag => swag.id == id );
+    const i = cart.findIndex( swag => swag.id == id );
+
+    cart.splice(i, 1);
+    req.session.user.total -= selectedSwag.price;
+    
+    res.status(200).send( req.session.user );
+  },
+
+  checkout: ( req, res, next ) => {
+    const { user } = req.session;
+    user.cart = [];
+    user.total = 0;
+
+    res.status(200).send( req.session.user );
+  }
+} 
+```
+
+</details>
+
+## Step 9
+
+### Summary
+
+In this step, we'll import the cart controller and create endpoints to hit every method on the controller.
+
+### Instructions
+
+
+
+### Solution
+
+
+
+
+

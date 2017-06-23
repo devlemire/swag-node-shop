@@ -310,8 +310,12 @@ In this step, we'll create a authorization controller that can handle logging in
     * Return a status of 200 with the request session's user object.
   * If the method doesn't find a user:
     * Return a status of 500.
-* For simplicity, we aren't going to do any verification on register. The `register` method should just push to the array of `users` an object with an `id`, `username`, and `password`. `username` and `password` will both be on the request body. It should increment the value of `id` after pushing to `users` and also update the value of `username` to the user's `username` on the request session.
-  * The method should also send a status of 200 and the request session's user object.
+* For simplicity, we aren't going to do any verification on register. The `register` method should just push an object with an `id`, `username`, and `password` to the `users` array. The method:
+  * Should look on the request body for a `username` and `password`.
+  * Should push to the `users` array.
+  * Should increment the value of the global `id` variable.
+  * Should update the value of `username` on the request session's user object.
+  * Should send a status of 200 with the request session's user object.
 * `signout` should destroy the session using `req.session.destroy()` and then return the `req.session` object.
   * The return of this will be used for Unit Testing.
 * `getUser` should simply send a status of 200 along with the request session's user object.

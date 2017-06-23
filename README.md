@@ -2,7 +2,7 @@
 
 # Project Summary
 
-In this project, we'll create a node back-end for DevMountain's swag shop. We'll make the back-end capable of registering users, logging in users, keeping track of guests, managing a shopping cart, and serving a pre-built React front-end. At the end of the project you'll be able to test your endpoints with Postman and the given front-end.
+In this project, we'll create a node back-end for DevMountain's swag shop. We'll make the back-end capable of registering users, logging in users, keeping track of guests, managing a shopping cart, and serving a pre-built React front-end. At the end of the project you'll be able to test your endpoints with postman and the given front-end.
 
 ## Step 1
 
@@ -745,7 +745,7 @@ In this step, we'll use the provided `postman_collection` to test all the endpoi
 * Open `server/index.js`.
 * Add middleware to use `express.static` to serve up the build folder in `public/build`.
 * Open `http://localhost:3000/` to see the API interact with a React front-end.
-* Import the `postman_collection` into Postman and run the Unit Tests to make sure they all pass.
+* Import the `postman_collection` into postman and run the Unit Tests to make sure they all pass.
 
 ### Solution
 

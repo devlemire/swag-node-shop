@@ -558,27 +558,6 @@ In this step, we'll require the auth controller in `server/index.js` and create 
   * Try signing out ( This should return nothing if the session was destroyed ).
 
 <details>
-
-<summary> Detailed Instructions </summary>
-
-<br />
-
-Let's begin by opening the `server/index.js` file and requiring the auth controller from `server/controllers/auth_controller.js`.
-
-```js
-const auth_controller = require( './controllers/auth_controller');
-```
-
-Then, let's create endpoints for each method on the controller. We'll need a `POST` endpoint at `/api/login` that uses `auth_controller.login`, a `POST` endpoint at `/api/register` that uses `auth_controller.register`, a `POST` endpoint at `/api/signout` that uses `auth_controller.signout`, and a `GET` endpoint at `/api/user` that uses `auth_controller.getUser`.
-
-```js
-app.post( '/api/login', auth_controller.login );
-app.post( '/api/register', auth_controller.register );
-app.post( '/api/signout', auth_controller.signout );
-app.get( '/api/user', auth_controller.getUser );
-```
-
-</details>
   
 ### Solution
 

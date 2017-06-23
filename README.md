@@ -554,9 +554,65 @@ In this step, we'll import the cart controller and create endpoints to hit every
 
 ### Instructions
 
-
+* Open `server/index.js`.
+* Require the cart controller.
+* Create the following endpoints: ( `request method`, `url`, `controller method` )
+  * `POST` - `/api/cart` - `cart_controller.add`.
+  * `POST` - `/api/cart/checkout` - `cart_controller.checkout`.
+  * `DELETE` - `/api/cart` - `cart_controller.delete`.
+* Test your endpoints using postman.
+  * Try adding an item to the cart by `id` ( 1 - 35 ).
+  * Try remove an item from the cart by `id` ( 1 - 35 ).
+  * Try checking out.
 
 ### Solution
+
+<details>
+
+<summary> <code> server/index.js </code> </summary>
+
+```js
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
+// Middleware
+const checkForSession = require('./middlewares/checkForSession');
+
+// Controllers
+const swag_controller = require('./controllers/swag_controller');
+const auth_controller = require( './controllers/auth_controller');
+const cart_controller = require('./controllers/cart_controller');
+
+const app = express();
+
+app.use( bodyParser.json() );
+app.use( session({
+  secret: '@nyth!ng y0u w@nT',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use( checkForSession );
+
+// Swag
+app.get( '/api/swag', swag_controller.read );
+
+// Auth
+app.post( '/api/login', auth_controller.login );
+app.post( '/api/register', auth_controller.register );
+app.post( '/api/signout', auth_controller.signout );
+app.get( '/api/user', auth_controller.getUser );
+
+// Cart 
+app.post( '/api/cart', cart_controller.add );
+app.post( '/api/cart/checkout', cart_controller.checkout );
+app.delete( '/api/cart', cart_controller.delete );
+
+const port = 3000;
+app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+```
+
+</details>
 
 
 

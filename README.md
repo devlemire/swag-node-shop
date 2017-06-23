@@ -283,6 +283,19 @@ module.exports = {
 };
 ```
 
+Then, we can require it into `server/index.js` and create an endpoint that calls this method. Open `server/index.js` and require the `swag_controller`.
+
+```js
+const swag_controller = require('./controllers/swag_controller');
+```
+
+Now, let's make a `GET` endpoint at `/api/swag`that calls the `read` method on our `swag_controller`.
+
+```js
+const swag_controller = require('./controllers/swag_controller');
+app.get( '/api/swag', swag_controller.read );
+```
+
 </details>
 
 ### Solution

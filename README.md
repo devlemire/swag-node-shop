@@ -448,7 +448,7 @@ signout: ( req, res, next ) => {
 }
 ```
 
-Next up is `register`. We'll keep this method simple and won't check for any previous users with the same login information. This method should look for a `username` and `password` on the request body and then create a user object. It should use the global `id` variable for the `id`. After pushing the new user object to the `users` array it should increment the value of `id` by one so we can keep the value of `id` unique. It should then set the value of `username` on the request session's user object to the value of `username` from the request body. Finally the method should return the update user object with a status of 200.
+Next up is `register`. We'll keep this method simple and won't check for any previous users with the same login information. This method should look for a `username` and `password` on the request body and then create a user object. It should use the global `id` variable for the `id`. After pushing the new user object to the `users` array it should increment the value of `id` by one so we can keep the value of `id` unique. It should then set the value of `username` on the request session's user object to the value of `username` from the request body. Finally the method should return the updated user object with a status of 200.
 
 ```js
 register: ( req, res, next ) => {
@@ -563,7 +563,20 @@ In this step, we'll require the auth controller in `server/index.js` and create 
 
 <br />
 
+Let's begin by opening the `server/index.js` file and requiring the auth controller from `server/controllers/auth_controller.js`.
 
+```js
+const auth_controller = require( './controllers/auth_controller');
+```
+
+Then, let's create endpoints for each method on the controller. We'll need a `POST` endpoint at `/api/login` that uses `auth_controller.login`, a `POST` endpoint at `/api/register` that uses `auth_controller.register`, a `POST` endpoint at `/api/signout` that uses `auth_controller.signout`, and a `GET` endpoint at `/api/user` that uses `auth_controller.getUser`.
+
+```js
+app.post( '/api/login', auth_controller.login );
+app.post( '/api/register', auth_controller.register );
+app.post( '/api/signout', auth_controller.signout );
+app.get( '/api/user', auth_controller.getUser );
+```
 
 </details>
   

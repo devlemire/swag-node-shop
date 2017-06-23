@@ -10,11 +10,7 @@ module.exports = {
 
     if ( user ) {
       const cart = session.user.cart;
-      session.user = {
-        username: user.username,
-        cart: cart
-      };
-
+      session.user.username = user.username;
       res.status(200).send(session.user);
     } else {
       res.status(500).send('Unauthorized.');
@@ -28,11 +24,7 @@ module.exports = {
     users.push({ id, username, password });
     id++;
 
-    const cart = session.user.cart;
-    session.user = {
-      username,
-      cart
-    };
+    session.user.username = username;
 
     res.status(200).send( session.user );
   },
@@ -40,7 +32,7 @@ module.exports = {
   signout: ( req, res, next ) => {
     const { session } = req;
     session.destroy();
-    res.status(200).send('Signing out..');
+    res.status(200).send( req.session );
   },
 
   getUser: ( req, res, next ) => {

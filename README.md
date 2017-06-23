@@ -218,7 +218,7 @@ In this step, we'll create a swag controller that can `read` the swag from `mode
 * Open `server/controllers/swag_controller.js`.
 * Require `swag` from `server/models/swag`. 
   * This is just an array of swag objects.
-* Export an object with a `read` method that has a `req`, `res`, and `next` method. 
+* Export an object with a `read` method that has a `req`, `res`, and `next` parameter. 
   * The `read` method should use `res` to send a status of 200 with the `swag` array.
 * Open `server/index.js`.
 * Require the swag controller.
@@ -284,5 +284,95 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 ```
 
 </details>
+
+## Step 6
+
+### Summary
+
+In this step, we'll create a authorization controller that can handle logging in, registering, signing out, and also reading the user from `req.session`.
+
+### Instructions
+
+* Create an `auth_controller.js` in `server/controllers/`.
+* Open `server/controllers/auth_controller.js`.
+* At the top of the file require users from `models/users`.
+  * This is where the users are kept after registering.
+  * A user object looks like: `{ id: integer, username: string, password: string }`
+* Underneath the require for `users`, add an `id` variable that equals `1`.
+  * We'll increment this by one to make sure no users can have the same `id`.
+* Export an object with a `login`, `register`, `signout`, and `getUser` method.
+  * All methods should capture `req`, `res`, and `next` as parameters.
+* `login` should look on the request body for a `username` and `password`. It should then see if a user from the `users` array matches that `username` and `password` combination.
+  * If the method finds a user, return a status of 200 with the user object. The method should also update the value of `username` of the session to the user's username.
+  * If the method doesn't find a user, return a status of 500.
+* For simplicity, we aren't going to do any verification on register. The `register` method should just push to the array of `users` an object with an `id`, `username`, and `password`. `username` and `password` will both be on the request body. It should increment the value of `id` after pushing to `users` and also update the value of `username` to the user's `username` on the request session.
+  * The method should also send a status of 200 and the request session's user object.
+* `signout` should destroy the session using `req.session.destroy()` and then return the `req.session` object.
+  * The return of this will be used for Unit Testing.
+* `getUser` should simply send a status of 200 along with the request session's user object.
+
+<details>
+
+<summary> Detailed Instructions </summary>
+
+<br />
+
+
+
+</details>
+
+### Solution
+
+<details>
+
+<summary> <code> server/controllers/auth_controller.js </code> </summary>
+
+```js
+const users = require('../models/users');
+let id = 1;
+
+module.exports = {
+  login: ( req, res, next ) => {
+    const { session } = req;
+    const { username, password } = req.body;
+
+    const user = users.find( user => user.username === username && user.password === password );
+
+    if ( user ) {
+      const cart = session.user.cart;
+      session.user.username = user.username;
+      res.status(200).send(session.user);
+    } else {
+      res.status(500).send('Unauthorized.');
+    }
+  },
+
+  register: ( req, res, next ) => {
+    const { session } = req;
+    const { username, password } = req.body;
+
+    users.push({ id, username, password });
+    id++;
+
+    session.user.username = username;
+
+    res.status(200).send( session.user );
+  },
+
+  signout: ( req, res, next ) => {
+    const { session } = req;
+    session.destroy();
+    res.status(200).send( req.session );
+  },
+
+  getUser: ( req, res, next ) => {
+    const { session } = req;
+    res.status(200).send( session.user );
+  }
+};
+```
+
+</details>
+
 
 

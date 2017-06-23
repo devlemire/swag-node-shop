@@ -141,6 +141,8 @@ In this step, we'll add custom middleware that will check to see if a session ha
 
 <summary> Detailed Instructions </summary>
 
+<br />
+
 Let's begin by creating a folder called `middlewares` in `server/`. We'll keep all our middleware in this folder. Let's create a file called `checkForSession.js` inside this folder. Export a function that captures `req`, `res`, and `next` as parameters.
 
 ```js

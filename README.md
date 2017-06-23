@@ -550,7 +550,7 @@ module.exports = {
 
 ### Summary
 
-In this step, we'll import the cart controller and create endpoints to hit every method on the controller.
+In this step, we'll require the cart controller and create endpoints to hit every method on the controller.
 
 ### Instructions
 
@@ -665,6 +665,19 @@ module.exports = {
 ```
 
 </details>
+
+## Step 11
+
+### Summary
+
+In this step, we'll require the search controller and create endpoints to hit every method on the controller.
+
+### Instructions
+
+
+
+### Solution
+
 
 
 

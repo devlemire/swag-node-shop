@@ -205,3 +205,84 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 </details>
 
+## Step 5
+
+### Summary
+
+In this step, we'll create a swag controller that can `read` the swag from `models/swag` and send it in a response. We'll also require it in `server/index.js` and create an endpoint.
+
+### Instructions
+
+* Create a folder called `controllers` in `server/`.
+* Create a file called `swag_controller.js` in `server/controllers/`.
+* Open `server/controllers/swag_controller.js`.
+* Require `swag` from `server/models/swag`. 
+  * This is just an array of swag objects.
+* Export an object with a `read` method that has a `req`, `res`, and `next` method. 
+  * The `read` method should use `res` to send a status of 200 with the `swag` array.
+* Open `server/index.js`.
+* Require the swag controller.
+* Create a `GET` endpoint at `/api/swag` that calls the `read` method from the swag controller.
+* Hit `http://localhost:3000/api/swag` in postman to make sure you are getting the swag array.
+
+<details>
+
+<summary> <code> Detailed Instructions </code> </summary>
+
+<br />
+
+</details>
+
+### Solution
+
+<details>
+
+<summary> <code> server/controllers/swag_controller.js </code> </summary>
+
+```js
+const swag = require('../models/swag');
+
+module.exports = {
+  read: ( req, res, next ) => {
+    res.status(200).send( swag );
+  }
+};
+```
+
+</details>
+
+<details>
+
+<summary> <code> server/index.js </code> </summary>
+
+```js
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
+// Middleware
+const checkForSession = require('./middlewares/checkForSession');
+
+// Controllers
+const swag_controller = require('./controllers/swag_controller');
+
+const app = express();
+
+app.use( bodyParser.json() );
+app.use( session({
+  secret: '@nyth!ng y0u w@nT',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use( checkForSession );
+
+// Swag
+app.get( '/api/swag', swag_controller.read );
+
+const port = 3000;
+app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+```
+
+</details>
+
+

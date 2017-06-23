@@ -22,7 +22,7 @@ app.use( session({
   resave: false,
   saveUninitialized: false
 }));
-app.use( ( req, res, next ) => checkForSession( req, res, next ) );
+app.use( checkForSession );
 
 // Auth
 app.post( '/api/login', auth_controller.login );

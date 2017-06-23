@@ -134,7 +134,7 @@ In this step, we'll add custom middleware that will check to see if a session ha
 * Export a function that has a `req`, `res`, and `next` parameter.
 * Check if the `req.session` has a `user` object.
   * If the session doesn't have it, add it to the session.
-    * User object: `{ username: string, cart: array, total: integer }`.
+    * User object: `{ username: '', cart: [], total: 0 }`.
   * If the session does have it, call `next`.
 
 <details>
@@ -164,3 +164,44 @@ module.exports = function( req, res, next ) {
 ```
 
 </details>
+
+## Step 4
+
+### Summary
+
+In this step, we'll require our middleware in `index.js` and add it to `app`.
+
+### Instructions
+
+* Require `server/middlewares/checkForSession.js`.
+* Use `app.use` to add `checkForSession`.
+
+### Solution
+
+<details>
+
+<summary> <code> server/index.js </code> </summary>
+
+```js
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
+const checkForSession = require('./middlewares/checkForSession');
+
+const app = express();
+
+app.use( bodyParser.json() );
+app.use( session({
+  secret: '@nyth!ng y0u w@nT',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use( checkForSession );
+
+const port = 3000;
+app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+```
+
+</details>
+

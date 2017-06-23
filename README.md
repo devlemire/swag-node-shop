@@ -46,6 +46,8 @@ In this step, we'll create an express `app`, use our `body-parser` and `session`
 
 <summary> Detailed Instructions </summary>
 
+<br />
+
 Now that `index.js` has access to all the packages, let's create an express application. Create a variable called `app` and set it equal to `express` invoked. 
 
 ```js

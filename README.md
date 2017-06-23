@@ -556,8 +556,6 @@ In this step, we'll require the auth controller in `server/index.js` and create 
   * Try logging in with that user.
   * Try getting the session's information on the user ( /api/user ).
   * Try signing out ( This should return nothing if the session was destroyed ).
-
-<details>
   
 ### Solution
 

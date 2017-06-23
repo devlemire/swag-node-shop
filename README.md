@@ -614,6 +614,59 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 </details>
 
+## Step 10
+
+### Summary
+
+In this step, we'll create a search controller that will also to filter swag by `category`. The current categories are: `hats`, `shirts`, `jackets`, `sweaters`, `pants`, and `shorts`.
+
+### Instructions
+
+* Create a `search_controller.js` in `server/controllers/`.
+* Open `server/controllers/search_controller.js`.
+* Require `swag` from `models/swag.js`.
+  * This is just an array of swag objects.
+* Export an object with a search method.
+* This method should capture `req`, `res`, and `next` as parameters.
+* This method should check for a `category` from the request query.
+* This method should return a status 200 with the entire swag array if the category doesn't exist.
+* This method should return a status 200 with the filtered array of swag by `category` if it does exist.
+
+<details>
+
+<summary> Detailed Instructions </summary>
+
+<br />
+
+
+
+</details>
+
+### Solution
+
+<details>
+
+<summary> <code> server/controllers/search_controller.js </code> </summary>
+
+```js
+const swag = require('../models/swag');
+
+module.exports = {
+  search: ( req, res, next ) => {
+    const { category } = req.query;
+    if ( !category ) {
+      res.status(200).send( swag );
+    } else {
+      const filteredSwag = swag.filter( swag => swag.category === category );
+      res.status(200).send( filteredSwag );
+    }
+  }
+};
+```
+
+</details>
+
+
 
 
 

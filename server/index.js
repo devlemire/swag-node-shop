@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 // Controllers
-const ac = require( './controllers/auth_controller');
-const swagc = require('./controllers/swag_controller');
-const searchc = require('./controllers/search_controller');
-const cc = require('./controllers/cart_controller');
+const auth_controller = require( './controllers/auth_controller');
+const swag_controller = require('./controllers/swag_controller');
+const search_controller = require('./controllers/search_controller');
+const cart_controller = require('./controllers/cart_controller');
 
 // Middleware
 const checkForSession = require('./middlewares/checkForSession');
@@ -18,28 +18,28 @@ const app = express();
 app.use( express.static( `${__dirname}/../public/build` ) );
 app.use( bodyParser.json() );
 app.use( session({
-  secret: 'sdfslg234WER@#$@$',
+  secret: '@nyth!ng y0u w@nT',
   resave: false,
   saveUninitialized: false
 }));
 app.use( ( req, res, next ) => checkForSession( req, res, next ) );
 
 // Auth
-app.post( '/api/login', ac.login );
-app.post( '/api/register', ac.register );
-app.post( '/api/signout', ac.signout );
-app.get( '/api/user', ac.getUser );
+app.post( '/api/login', auth_controller.login );
+app.post( '/api/register', auth_controller.register );
+app.post( '/api/signout', auth_controller.signout );
+app.get( '/api/user', auth_controller.getUser );
 
 // Swag
-app.get( '/api/swag', swagc.read );
+app.get( '/api/swag', swag_controller.read );
 
 // Search
-app.get( '/api/search', searchc.search );
+app.get( '/api/search', search_controller.search );
 
 // Cart
-app.post( '/api/cart', cc.add );
-app.post( '/api/cart/checkout', cc.checkout );
-app.delete( '/api/cart', cc.delete );
+app.post( '/api/cart', cart_controller.add );
+app.post( '/api/cart/checkout', cart_controller.checkout );
+app.delete( '/api/cart', cart_controller.delete );
 
 const port = 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );

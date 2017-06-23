@@ -302,9 +302,14 @@ In this step, we'll create a authorization controller that can handle logging in
   * We'll increment this by one to make sure no users can have the same `id`.
 * Export an object with a `login`, `register`, `signout`, and `getUser` method.
   * All methods should capture `req`, `res`, and `next` as parameters.
-* `login` should look on the request body for a `username` and `password`. It should then see if a user from the `users` array matches that `username` and `password` combination.
-  * If the method finds a user, return a status of 200 with the user object. The method should also update the value of `username` of the session to the user's username.
-  * If the method doesn't find a user, return a status of 500.
+* `login`:
+  * Should look on the request body for a `username` and `password`.
+  * Should check to see if a user from the `users` array matches that user/pass combination.
+  * If the method finds a user:
+    * Update the value of `username` to the user's username on the request session's user object.
+    * Return a status of 200 with the request session's user object.
+  * If the method doesn't find a user:
+    * Return a status of 500.
 * For simplicity, we aren't going to do any verification on register. The `register` method should just push to the array of `users` an object with an `id`, `username`, and `password`. `username` and `password` will both be on the request body. It should increment the value of `id` after pushing to `users` and also update the value of `username` to the user's `username` on the request session.
   * The method should also send a status of 200 and the request session's user object.
 * `signout` should destroy the session using `req.session.destroy()` and then return the `req.session` object.

@@ -856,7 +856,35 @@ In this step, we'll create a search controller that will also to filter swag by 
 
 <br />
 
+Now for our last controller. Let's begin by creating a `search_controller.js` in `server/controllers/`. This controller will need access to the swag model so let's require it from `server/models/swag`. This controller will only need one method. Let's export an object that has a method called search. The method should capture `req`, `res`, and `next` as parameters. 
 
+```js
+const swag = require('../models/swag');
+
+module.exports = {
+  search: ( req, res, next ) => {
+
+  }
+};
+```
+
+This method should look at the request query for a `category`. If it can't find a `category`, it should return a status of 200 with the entire swag array. If it can, it should filter the swag array by the category and return the filtered swag array.
+
+```js
+const swag = require('../models/swag');
+
+module.exports = {
+  search: ( req, res, next ) => {
+    const { category } = req.query;
+    if ( !category ) {
+      res.status(200).send( swag );
+    } else {
+      const filteredSwag = swag.filter( swag => swag.category === category );
+      res.status(200).send( filteredSwag );
+    }
+  }
+};
+```
 
 </details>
 

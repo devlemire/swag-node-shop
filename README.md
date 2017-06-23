@@ -438,7 +438,7 @@ getUser: ( req, res, next ) => {
 }
 ```
 
-Now let's focus on `signout`. This method is responsible for clearing the cart and total on the request session's user object. It should then return the updated user object with a status of 200.
+Now let's focus on `signout`. This method is responsible for destroying the session and returning the session ( which should be undefined at that point ).
 
 ```js
 signout: ( req, res, next ) => {

@@ -9,7 +9,6 @@ module.exports = {
     const user = users.find( user => user.username === username && user.password === password );
 
     if ( user ) {
-      const cart = session.user.cart;
       session.user.username = user.username;
       res.status(200).send(session.user);
     } else {

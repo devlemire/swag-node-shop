@@ -339,7 +339,6 @@ module.exports = {
     const user = users.find( user => user.username === username && user.password === password );
 
     if ( user ) {
-      const cart = session.user.cart;
       session.user.username = user.username;
       res.status(200).send(session.user);
     } else {
@@ -374,5 +373,67 @@ module.exports = {
 
 </details>
 
+## Step 7
 
+### Summary
+
+In this step, we'll require the auth controller in `server/index.js` and create endpoints to hit every method on the controller.
+
+### Instructions
+
+* Open `server/index.js`.
+* Require the `auth_controller.js` file.
+* Create the following endpoints: ( `request method`, `url`, `controller method` )
+  * `POST` - `/api/login` - `auth_controller.login`.
+  * `POST` - `/api/register` - `auth_controller.register`.
+  * `POST` - `/api/signout` - `auth_controller.signout`.
+  * `GET` - `/api/user` - `auth_controller.getUser`.
+* Test your endpoints using postman.
+  * Try registering a new user.
+  * Try logging in with that user.
+  * Try getting the session's information on the user ( /api/user ).
+  * Try signing out ( This should return nothing if the session was destroyed ).
+  
+### Solution
+
+<details>
+
+<summary> <code> server/index.js </code> </summary>
+
+```js
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
+// Middleware
+const checkForSession = require('./middlewares/checkForSession');
+
+// Controllers
+const swag_controller = require('./controllers/swag_controller');
+const auth_controller = require( './controllers/auth_controller');
+
+const app = express();
+
+app.use( bodyParser.json() );
+app.use( session({
+  secret: '@nyth!ng y0u w@nT',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use( checkForSession );
+
+// Swag
+app.get( '/api/swag', swag_controller.read );
+
+// Auth
+app.post( '/api/login', auth_controller.login );
+app.post( '/api/register', auth_controller.register );
+app.post( '/api/signout', auth_controller.signout );
+app.get( '/api/user', auth_controller.getUser );
+
+const port = 3000;
+app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+```
+
+</details>
 

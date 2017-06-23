@@ -735,7 +735,7 @@ app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 ### Summary
 
-In this step, we'll use the provided postman_collection to test all the endpoint and add `express.static` to server the pre-built front-end.
+In this step, we'll use the provided `postman_collection` to test all the endpoint and add `express.static` to server the pre-built front-end.
 
 ### Instructions
 

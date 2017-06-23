@@ -22,10 +22,12 @@ module.exports = {
     const { cart } = req.session.user;
 
     const selectedSwag = cart.find( swag => swag.id == id );
-    const i = cart.findIndex( swag => swag.id == id );
 
-    cart.splice(i, 1);
-    req.session.user.total -= selectedSwag.price;
+    if ( selectedSwag ) {
+      const i = cart.findIndex( swag => swag.id == id );
+      cart.splice(i, 1);
+      req.session.user.total -= selectedSwag.price;
+    }
     
     res.status(200).send( req.session.user );
   },

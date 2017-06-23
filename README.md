@@ -677,6 +677,9 @@ In this step, we'll require the search controller and create an endpoint to hit 
 * Open `server/index.js`.
 * Require the search controller.
 * Create a GET endpoint on `/api/search` that calls the search method on the search controller.
+* Test your endpoint using postman.
+  * Try getting a filtered swag list of `hats`.
+  * Try getting a filtered swag list of `pants`.
 
 ### Solution
 
